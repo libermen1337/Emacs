@@ -1,1 +1,5 @@
-
+* Installation -
+#+BEGIN_SRC sh
+  sudo rm -rf ~/.emacs.d
+  git clone https://github.com/liebermen1337/Emacs.git ~/.emacs.d
+#+END_SRC
