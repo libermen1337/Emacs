@@ -2,7 +2,7 @@
 ** Theme -
 *** loading the theme -
 #+BEGIN_SRC emacs-lisp
-(load-theme 'gruvbox-dark-hard t)
+(load-theme 'cyberpunk t)
 
 #+END_SRC
 *** Cyberpunk theme -
