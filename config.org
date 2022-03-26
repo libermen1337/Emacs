@@ -1,4 +1,5 @@
 * Basic settings -
+  - type C-h k to see the functions information
 ** theme -
 *** Doom emacs theme 
 #+BEGIN_SRC emacs-lisp
@@ -74,6 +75,17 @@
 #+BEGIN_SRC emacs-lisp
   (global-subword-mode 1)
 #+END_SRC
+** show lines and columns in modeline -
+#+BEGIN_SRC emacs-lisp
+  (line-number-mode 1)
+  (column-number-mode 1)
+#+END_SRC
+** clock 
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-24hr-format t)
+  (display-time-mode 1)
+
+#+END_SRC
 * Use Package -
 ** Which key -
 #+BEGIN_SRC emacs-lisp
@@ -127,7 +139,32 @@
     :bind
     ("s-e" . sudo-edit))
 #+END_SRC
+** Dmenu
+  - dmenu package for emacs
+  - this package does not work Gnome since Gnome intercepts the package :(
+#+BEGIN_SRC emacs-lisp
+  (use-package dmenu
+    :ensure t
+    :bind
+    ("s-SPC" . 'dmenu))
+#+END_SRC
+
+** symon
+   - symon is a very simple performance monitor 
+#+BEGIN_SRC emacs-lisp
+  (use-package symon
+    :ensure t
+    :bind
+    ("s-h" . symon-mode)
+    )
+#+END_SRC
 * Org -
+** org mode snippets 
+   - <el followed by a <TAB> will generate emacs-lisp snippet 
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-structure-template-alist
+	       '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+#+END_SRC
 ** Org Bullets -
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
@@ -160,7 +197,7 @@
     :bind
     ("M-x" . smex))
 #+END_SRC
-
+ 
 * Custom functions - 
 ** visit the config file with single keyboard binding 
 #+BEGIN_SRC emacs-lisp
@@ -248,6 +285,15 @@
 	(dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))
 	(add-hook hook 'rainbow-mode)))
 #+END_SRC     
+
+** rainbow delimiters 
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    (rainbow-delimiters-mode 1))
+#+END_SRC
+
 * Auto Completion 
 ** electric
    - autocompletion for almost every single bracket
@@ -258,6 +304,15 @@
 			      (?\{ . ?\})))
 
   (electric-pair-mode t)
+#+END_SRC
+** company
+   - auto completion framework
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (add-hook 'after-init-hook 'global-company-mode))
+
 #+END_SRC
 * Buffer
 ** kill the current buffer 
@@ -282,4 +337,38 @@
 
   ;;keybinding -
   (global-set-key (kbd "C-M-k") 'kill-all-buffers)
+#+END_SRC
+* Dashboard 
+  - setting up a good looking dashboard for emacs
+  - 
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents . 10)))
+    (setq dashboard-banner-logo-title "Lal Salam"))
+#+END_SRC
+* Modeline
+** spaceline 
+   - Well Uncle Dave likes it so oh well
+   - also reccomend doom modeline 
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline
+    :ensure t
+    :config
+    (require 'spaceline-config)
+    (setq powerline-default-separator (quote arrow))
+    (spaceline-spacemacs-theme)) 
+#+END_SRC
+** diminish
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t
+    :init
+    (diminish 'hungry-delete-mode)
+    (diminish 'beacon-mode)
+    (diminish 'which-key-mode)
+    (diminish 'company-mode)
+    (diminish 'subword-mode))
 #+END_SRC
