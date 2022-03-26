@@ -1,4 +1,4 @@
-* Basic settings -
+<<
 ** Theme -
 *** loading the theme -
 #+BEGIN_SRC emacs-lisp
@@ -11,6 +11,110 @@
     (package-refresh-contents)
     (package-install 'cyberpunk-theme))
 
+#+END_SRC
+** elcord -
+#+BEGIN_SRC emacs-lisp
+(unless (package-installed-p 'elcord)
+  (package-refresh-contents)
+  (package-install 'elcord))
+(elcord-mode)
+#+END_SRC
+** General settings -
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  ;;font -
+  (set-frame-font "JetBrains Mono" nil t)
+  ;;startup screen -
+  (setq inhibit-startup-screen t)
+  ;;alias -
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
+  ;;keybinding for ansi terminal -
+  (global-set-key (kbd "<s-return>") 'ansi-term) 
+
+  ;;no politics -
+  (setq scroll-conservatively 100)
+
+  ;; remove the bell -
+  (setq ring-bell-function 'ignore)
+
+  ;;find your cursor only for GUI -
+  (when  window-system (global-hl-line-mode t))
+
+  ;;prettify symbols for GUI only -
+  ( when window-system(global-prettify-symbols-mode t)) 
+
+  ;;remove the backup files -
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+
+
+  ;;org <s snippets -
+  (when (version<="9.2" (org-version))
+    (require 'org-tempo))
+#+END_SRC
+
+** Terminal -
+*** Setting bash as default shell -
+#+BEGIN_SRC emacs-lisp
+(defvar my-term-shell "/bin/bash")
+(defadvice ansi-term (before force-bash)
+  (interactive (list my-term-shell)))
+(ad-activate 'ansi-term)
+#+END_SRC
+*** Keybinding for ansi terminal -
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<s-return>") 'ansi-term)
+#+END_SRC
+** Which key -
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :init(which-key-mode))
+#+END_SRC
+** Beacon -
+#+BEGIN_SRC emacs-lisp
+(use-package beacon
+  :ensure t
+  :init
+  (beacon-mode t))
+#+END_SRC
+
+** Org Bullets -
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mo
+** Enable Ido mode 
+#+BEGIN_SRC emacs-lisp
+  ;;better switching 
+  (setq ido-enable-flex-matching nil)
+  (setq ido-create-new-buffer 'always)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+#+END_SRC
+** ido mode vertical -
+#+BEGIN_SRC emacs-lisp
+  (use-package ido-vertical-mode
+    :ensure t
+    :ini
+* Basic settings -
+** theme -
+*** Doom emacs theme 
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
+    :ensure t
+    :config
+    (setq doom-themes-enable-bold t)
+    (load-theme 'doom-acario-dark t)
+
+    ;;treemacs config
+    (setq doom-themes-treemacs-theme "doom-acario-dark")
+    (doom-themes-treemacs-config)
+    (doom-themes-org-config))
 #+END_SRC
 ** elcord -
 #+BEGIN_SRC emacs-lisp
@@ -83,6 +187,29 @@
   (beacon-mode t))
 #+END_SRC
 
+** Avy
+- very useful package for going to different lines very fast 
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind("M-s" . avy-goto-char))
+#+END_SRC
+
+** switch-window
+  - switch windows in a much smarter way 
+#+BEGIN_SRC emacs-lisp
+  (use-package switch-window
+    :ensure t
+    :config
+      (setq switch-window-input-style 'minibuffer)
+      (setq switch-window-increase 4)
+      (setq switch-window-threshold 2)
+      (setq switch-window-shortcut-style 'qwerty)
+      (setq switch-window-qwerty-shortcuts
+	  '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
+    :bind
+      ([remap other-window] . switch-window))
+#+END_SRC
 * Org -
 ** Org Bullets -
 #+BEGIN_SRC emacs-lisp
@@ -117,3 +244,68 @@
     ("M-x" . smex))
 #+END_SRC
 
+* Custom functions - 
+** visit the config file with single keyboard binding 
+#+BEGIN_SRC emacs-lisp
+  ;; config visit custom function 
+  (defun config-visit ()
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+
+  ;;binding it to a key -
+  (global-set-key (kbd "C-c e") 'config-visit)
+#+END_SRC
+** visit the init with a single keyboard binding
+#+BEGIN_SRC emacs-lisp
+  ;;init visit
+  (defun init-visit ()
+    (interactive)
+    (find-file "~/.emacs.d/init.el"))
+
+  ;;keybinding
+  (global-set-key (kbd "C-c i") 'init-visit)
+
+#+END_SRC
+** reloading the file -
+#+BEGIN_SRC emacs-lisp
+  (defun config-reload ()
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+
+  ;;keybinding -
+  (global-set-key (kbd "C-c r") 'config-reload)
+
+#+END_SRC
+** split window automaticaly -
+*** split horizontally 
+#+BEGIN_SRC emacs-lisp
+  (defun split-horizontally ()
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+
+  ;;keybinding -
+  (global-set-key (kbd "C-x 2") 'split-horizontally)
+#+END_SRC
+*** split window vertically
+#+BEGIN_SRC emacs-lisp
+    (defun split-vertically ()
+      (interactive)
+      (split-window-right)
+      (balance-windows)
+      (other-window 1))
+
+    ;;keybinding -
+    (global-set-key (kbd "C-x 3") 'split-vertically)
+#+END_SRC
+* Web dev - 
+** rainbow 
+   - set the color depending on the hexcode 
+   - really good package if your a web dev 
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+	:init
+	(dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))
+	(add-hook hook 'rainbow-mode)))
+#+END_SRC     
