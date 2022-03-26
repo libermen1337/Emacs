@@ -6,7 +6,7 @@
     :ensure t
     :config
     (setq doom-themes-enable-bold t)
-    (load-theme 'doom-acario-dark t)
+    (load-theme 'gruvbox-dark-hard t)
 
     ;;treemacs config
     (setq doom-themes-treemacs-theme "doom-acario-dark")
@@ -112,6 +112,21 @@
     :bind
       ([remap other-window] . switch-window))
 #+END_SRC
+** hungry-delete -
+   - delete all the unwanted space between two variables 
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+    :ensure t
+    :config
+    (global-hungry-delete-mode))
+#+END_SRC
+** sudo-edit
+#+BEGIN_SRC emacs-lisp
+  (use-package sudo-edit
+    :ensure t
+    :bind
+    ("s-e" . sudo-edit))
+#+END_SRC
 * Org -
 ** Org Bullets -
 #+BEGIN_SRC emacs-lisp
@@ -201,6 +216,15 @@
     ;;keybinding -
     (global-set-key (kbd "C-x 3") 'split-vertically)
 #+END_SRC
+** kill whole word -
+#+BEGIN_SRC emacs-lisp
+  (defun kill-whole-word ()
+    (interactive)
+    (backward-word)
+    (kill-word 1))
+
+  (global-set-key (kbd "C-c w w") 'kill-whole-word)
+#+END_SRC
 * Web dev - 
 ** rainbow 
    - set the color depending on the hexcode 
@@ -218,8 +242,7 @@
   (setq electric-pair-pairs '(
 			      (?\( . ?\))
 			      (?\[ . ?\])
-			      (?\{ . ?\})
-			      (?\< . ?\>)))
+			      (?\{ . ?\})))
 
   (electric-pair-mode t)
 #+END_SRC
