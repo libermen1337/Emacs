@@ -216,6 +216,19 @@
     ;;keybinding -
     (global-set-key (kbd "C-x 3") 'split-vertically)
 #+END_SRC
+** copy whole line -
+#+BEGIN_SRC emacs-lisp
+  (defun copy-whole-line()
+    (interactive)
+    (save-excursion
+      (kill-new
+       (buffer-substring
+	(point-at-bol)
+	(point-at-eol)))))
+
+  ;;keybinding -
+  (global-set-key (kbd "C-c w l") 'copy-whole-line)
+#+END_SRC
 ** kill whole word -
 #+BEGIN_SRC emacs-lisp
   (defun kill-whole-word ()
@@ -245,4 +258,28 @@
 			      (?\{ . ?\})))
 
   (electric-pair-mode t)
+#+END_SRC
+* Buffer
+** kill the current buffer 
+   - asking for which buffer to kill is stupid
+   - I know which buffer I want to kill
+#+BEGIN_SRC emacs-lisp
+  (defun kill-current-buffer()
+    (interactive)
+    (kill-buffer (current-buffer)))
+  ;;keybinding
+
+  (global-set-key (kbd "C-x k") 'kill-current-buffer)
+#+END_SRC
+** kill all buffers 
+   - kill all the buffers in emacs that are present
+   - reccomend a hard keybinding for this one so you accedentally don't loose your data
+#+BEGIN_SRC emacs-lisp
+  (defun kill-all-buffers ()
+    (interactive)
+    (mapc 'kill-buffer (buffer-list))
+    )
+
+  ;;keybinding -
+  (global-set-key (kbd "C-M-k") 'kill-all-buffers)
 #+END_SRC
