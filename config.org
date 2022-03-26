@@ -6,7 +6,7 @@
     :ensure t
     :config
     (setq doom-themes-enable-bold t)
-    (load-theme 'gruvbox-dark-hard t)
+    (load-theme 'doom-acario-dark t)
 
     ;;treemacs config
     (setq doom-themes-treemacs-theme "doom-acario-dark")
