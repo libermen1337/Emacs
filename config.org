@@ -158,6 +158,14 @@
     ("s-h" . symon-mode)
     )
 #+END_SRC
+** Pop up menu
+  - popup menu for the kill ring
+  - very useful incase you "yank" the wrong char/variable/variable !
+#+BEGIN_SRC emacs-lisp
+  (use-package popup-kill-ring
+    :ensure t
+    :bind("M-y" . popup-kill-ring ))
+#+END_SRC
 * Org -
 ** org mode snippets 
    - <el followed by a <TAB> will generate emacs-lisp snippet 
