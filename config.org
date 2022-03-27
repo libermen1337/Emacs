@@ -1,7 +1,8 @@
 * Basic settings -
   - type C-h k to see the functions information
-** theme -
-*** Doom emacs theme 
+** theme - 
+*** Doom emacs theme
+    - One of the best themes available for emacs
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :ensure t
@@ -15,6 +16,8 @@
     (doom-themes-org-config))
 #+END_SRC
 ** elcord -
+   - Since I have spent so much time in emacs I want to show off my skills to my friends on discord
+   - emacs presence for discord so that I can flex my programmer skills 
 #+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'elcord)
   (package-refresh-contents)
@@ -60,6 +63,8 @@
 
 ** Terminal -
 *** Setting bash as default shell -
+    - just a bash boomer setting up his terminal ,nothing to see here
+    - If you use *zsh* then just add manually edit it as =/bin/zsh=
 #+BEGIN_SRC emacs-lisp
 (defvar my-term-shell "/bin/bash")
 (defadvice ansi-term (before force-bash)
@@ -67,6 +72,7 @@
 (ad-activate 'ansi-term)
 #+END_SRC
 *** Keybinding for ansi terminal -
+    - the title says it all
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<s-return>") 'ansi-term)
 #+END_SRC
@@ -76,11 +82,13 @@
   (global-subword-mode 1)
 #+END_SRC
 ** show lines and columns in modeline -
+   - just take a look at the title fam
 #+BEGIN_SRC emacs-lisp
   (line-number-mode 1)
   (column-number-mode 1)
 #+END_SRC
 ** clock 
+   - you can also change it to *12* hour time format incase you don't like the 24 hour one.
 #+BEGIN_SRC emacs-lisp
   (setq display-time-24hr-format t)
   (display-time-mode 1)
@@ -88,12 +96,14 @@
 #+END_SRC
 * Use Package -
 ** Which key -
+   - really good for finding the uses of any keybinding
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
   :ensure t
   :init(which-key-mode))
 #+END_SRC
 ** Beacon -
+   - finding your cursor when you move your screen
 #+BEGIN_SRC emacs-lisp
 (use-package beacon
   :ensure t
@@ -166,7 +176,8 @@
     :ensure t
     :bind("M-y" . popup-kill-ring ))
 #+END_SRC
-** Swiper
+** swiper 
+   - since the inbuilt search *sucks* we will be using this program 
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
     :ensure t
@@ -181,6 +192,7 @@
 	       '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 #+END_SRC
 ** Org Bullets -
+   - make org mode even more *pretty*
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure t
@@ -211,8 +223,7 @@
     :init(smex-initialize)
     :bind
     ("M-x" . smex))
-#+END_SRC
- 
+#+END_SRC 
 * Custom functions - 
 ** visit the config file with single keyboard binding 
 #+BEGIN_SRC emacs-lisp
@@ -355,7 +366,6 @@
 #+END_SRC
 * Dashboard 
   - setting up a good looking dashboard for emacs
-  - 
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
     :ensure t
