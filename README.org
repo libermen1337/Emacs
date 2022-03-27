@@ -67,3 +67,7 @@
 | C-M-k             | Kill all the buffers      |
 |-------------------+---------------------------|
 
+* Contact and Important note ! -
+  - In case you just want to say hi or just chat then you can reach me through [[https://www.reddit.com/user/liebermen][reddit]].
+  - An important notice , I will be offline for the next *2-3 months dues to engineering exams ! * 
+  - I will return after May ,so till then goodbye friend :)
