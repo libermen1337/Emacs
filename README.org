@@ -1,5 +1,44 @@
+#+STARTUP: overview
+#+TITLE: Minimal Emacs Config
+#+CREATOR: liebermen1337
+
+* Requirements -
+  - =ttf-jetbrains-mono= font or just edit the =config.org= file by hand
+  - =mpd= *music player daemon* for obvious reasons
+  - =mpc= *music player client* for obvious reasons
+  - =mpv= for EMMS (for playing music inside emacs !)
+* NOTES -
+  - this is a working config so please keep that in mind that this repo may be subject to changes
+  - I have gone with =company= as my autocompletion framework
+  - I will be adding support for programming languages like python,javascript,typescript etc
+  - Non bloated emacs config loading in *1.5* seconds .
 * Installation -
 #+BEGIN_SRC sh
   sudo rm -rf ~/.emacs.d
   git clone https://github.com/liebermen1337/Emacs.git ~/.emacs.d
 #+END_SRC
+* Errors -
+  - In case you are encountered with any kind of error while cloning this repo then get rid of them by using =*M-x* package-refresh-contents *RET*=
+  - In case you get error that the package =rainbow-mode= cannot be found then type =*M-x* package-install *rainbow-mode* RET=
+  - In case you still get errors please kindly do reach out to me 
+* Themes -
+** Doom emacs theme -
+   - I first started my journey with doom emacs and I really liked its default theme out of the box
+   - Doom emacs theme that I'm using in this config is =doom-acario-dark=
+   - Doom emacs package comes with many other themes ,for more information about themes check out [[https://github.com/doomemacs/themes][doom-emacs-theme]] github page for more information
+** Gruvbox -
+   - Another theme that I love is the gruvbox theme , paticularly =gruvbox-dark-hard=
+   - Unfortunately I could not figure out how to install it thorugh use package 
+   - To install this theme type =*M-x* package-install *gruvbox* RET=
+   - To enable this theme temporarily during current session type =*M-x* load-theme RET *gruvbox* RET=
+   - To enable this theme permanently edit the =config.org= by hand and type =(load-theme 'gruvbox t)=
+   - There Are Different Variations Of It So Please Do Check Out [[https://github.com/Greduan/emacs-theme-gruvbox][gruvbox-emacs-theme]] github for more information
+** Cyberpunk -
+   - Last but not the least another theme that I love is the Cyberpunk theme
+   - A very dark theme , reccomended to be used late at night to avoid burning out your eyes
+   - Unfortunately I could not figure out how to install it through use package 
+   - To install this theme type =*M-x* package-install *cyberpunk-theme* RET=
+   - To enable this theme temporarily during current session type =*M-x* load-theme RET *cyberpunk* RET=
+   - To enable this theme permanently edit the =config.org= by hand and type =(load-theme 'cyberpunk t)=
+  
+
