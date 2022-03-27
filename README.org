@@ -18,8 +18,8 @@
   git clone https://github.com/liebermen1337/Emacs.git ~/.emacs.d
 #+END_SRC
 * Errors -
-  - In case you are encountered with any kind of error while cloning this repo then get rid of them by using =*M-x* package-refresh-contents *RET*=
-  - In case you get error that the package =rainbow-mode= cannot be found then type =*M-x* package-install *rainbow-mode* RET=
+  - In case you are encountered with any kind of error while cloning this repo then get rid of them by using =M-x package-refresh-contents RET=
+  - In case you get error that the package =rainbow-mode= cannot be found then type =M-x package-install rainbow-mode RET=
   - In case you still get errors please kindly do reach out to me 
 * Themes -
 ** Doom emacs theme -
@@ -29,16 +29,41 @@
 ** Gruvbox -
    - Another theme that I love is the gruvbox theme , paticularly =gruvbox-dark-hard=
    - Unfortunately I could not figure out how to install it thorugh use package 
-   - To install this theme type =*M-x* package-install *gruvbox* RET=
-   - To enable this theme temporarily during current session type =*M-x* load-theme RET *gruvbox* RET=
+   - To install this theme type =M-x package-install gruvbox RET=
+   - To enable this theme temporarily during current session type =M-x load-theme RET gruvbox RET=
    - To enable this theme permanently edit the =config.org= by hand and type =(load-theme 'gruvbox t)=
    - There Are Different Variations Of It So Please Do Check Out [[https://github.com/Greduan/emacs-theme-gruvbox][gruvbox-emacs-theme]] github for more information
 ** Cyberpunk -
    - Last but not the least another theme that I love is the Cyberpunk theme
    - A very dark theme , reccomended to be used late at night to avoid burning out your eyes
    - Unfortunately I could not figure out how to install it through use package 
-   - To install this theme type =*M-x* package-install *cyberpunk-theme* RET=
-   - To enable this theme temporarily during current session type =*M-x* load-theme RET *cyberpunk* RET=
+   - To install this theme type =M-x package-install cyberpunk-theme RET=
+   - To enable this theme temporarily during current session type =M-x load-theme RET cyberpunk RET=
    - To enable this theme permanently edit the =config.org= by hand and type =(load-theme 'cyberpunk t)=
   
+* Keyboard Shorcuts -
+  - custom keyboard shortcuts written in =elisp=
+  - =M= stands for *meta/alt*
+  - =C= stands for *control*
+  - =SPC= stands for *space*
+  - =s= stands for *super/windows key*
+|-------------------+---------------------------|
+| keyboard shortcut | function of the shorcut   |
+|-------------------+---------------------------|
+| M-s               | avy search                |
+| s-SPC             | dmenu                     |
+| s-h               | symon-mode                |
+| M-y               | popup kill ring           |
+| C-s               | swiper                    |
+| M-x               | smex                      |
+| C-c e             | config-visit              |
+| C-c i             | init-visit                |
+| C-c r             | config-reload             |
+| C-x 2             | split window horizontally |
+| C-x 3             | split window vertically   |
+| C-c w l           | copy whole line           |
+| C-c w w           | kill whole word           |
+| C-x k             | kill current buffer       |
+| C-M-k             | Kill all the buffers      |
+|-------------------+---------------------------|
 
