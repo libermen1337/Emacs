@@ -166,6 +166,13 @@
     :ensure t
     :bind("M-y" . popup-kill-ring ))
 #+END_SRC
+** Swiper
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind
+    ("C-s " . swiper))
+#+END_SRC
 * Org -
 ** org mode snippets 
    - <el followed by a <TAB> will generate emacs-lisp snippet 
@@ -380,21 +387,68 @@
     (diminish 'company-mode)
     (diminish 'subword-mode))
 #+END_SRC
-* Pop up menu
-  - popup menu for the kill ring
-  - very useful incase you "yank" the wrong char/variable/variable !
-#+BEGIN_SRC emacs-lisp
-  (use-package popup-kill-ring
-    :ensure t
-    :bind("M-y" . popup-kill-ring ))
-#+END_SRC
 
-* Swiper
+* EMMS
+  - listening music inside emacs !
+  - this will only work in window managers as DE like Gnome will intercept the keybinding :(
+** Basic setup
 #+BEGIN_SRC emacs-lisp
-  (use-package swiper
+  (use-package emms
     :ensure t
+    :config
+      (require 'emms-setup)
+      (require 'emms-player-mpd)
+      (emms-all) ; don't change this to values you see on stackoverflow questions if you expect emms to work
+      (setq emms-seek-seconds 5)
+      (setq emms-player-list '(emms-player-mpd))
+      (setq emms-info-functions '(emms-info-mpd))
+      (setq emms-player-mpd-server-name "localhost")
+      (setq emms-player-mpd-server-port "6601")
     :bind
-    ("C-s " . swiper))
+      ("s-m p" . emms)
+      ("s-m b" . emms-smart-browse)
+      ("s-m r" . emms-player-mpd-update-all-reset-cache)
+      ("<XF86AudioPrev>" . emms-previous)
+      ("<XF86AudioNext>" . emms-next)
+      ("<XF86AudioPlay>" . emms-pause)
+      ("<XF86AudioStop>" . emms-stop))
 #+END_SRC
+** MPC setup
+#+BEGIN_SRC emacs-lisp
+(setq mpc-host "localhost:6601")
 
+#+END_SRC
+** Some more stuff
+*** starting the daemon
+#+BEGIN_SRC emacs-lisp
+(defun mpd/start-music-daemon ()
+  "Start MPD, connects to it and syncs the metadata cache."
+  (interactive)
+  (shell-command "mpd")
+  (mpd/update-database)
+  (emms-player-mpd-connect)
+  (emms-cache-set-from-mpd-all)
+  (message "MPD has Started!"))
+(global-set-key (kbd "s-m c") 'mpd/start-music-daemon)
 
+#+END_SRC
+*** killing the daemon
+#+BEGIN_SRC emacs-lisp
+(defun mpd/kill-music-daemon ()
+  "Stops playback and kill the music daemon."
+  (interactive)
+  (emms-stop)
+  (call-process "killall" nil nil nil "mpd")
+  (message "killing MPD !"))
+(global-set-key (kbd "s-m k") 'mpd/kill-music-daemon)
+#+END_SRC
+*** updating the database 
+#+BEGIN_SRC emacs-lisp
+(defun mpd/update-database ()
+  "Updates the MPD database synchronously."
+  (interactive)
+  (call-process "mpc" nil nil nil "update")
+  (message "MPD Database Updated!"))
+(global-set-key (kbd "s-m u") 'mpd/update-database)
+
+#+END_SRC
